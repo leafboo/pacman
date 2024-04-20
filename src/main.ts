@@ -1,7 +1,9 @@
+import "./main.css"
+
 const canvas = document.querySelector('canvas')!;
 const c = canvas?.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 800;
+canvas.height = 800;
 
 let x = 100;
 let y = 100;
@@ -13,12 +15,12 @@ let dx = 0
 let dy = 0
 
 
-c?.clearRect(0, 0, window.innerWidth, window.innerHeight);
+c?.clearRect(0, 0, 800, 800);
 c?.beginPath();
 c?.arc(x, y, radius, starting, ending, isCounterClockwise);
 c?.stroke();
 
-function animate() {
+export function animate() {
   requestAnimationFrame(animate);
   createCircle();
 
