@@ -1,7 +1,7 @@
 import "./main.css"
 
 const canvas = document.querySelector('canvas')!;
-const c = canvas?.getContext('2d');
+const c = canvas?.getContext('2d')!;
 canvas.width = 800;
 canvas.height = 800;
 
@@ -14,21 +14,25 @@ let isCounterClockwise = false;
 let dx = 0
 let dy = 0
 
+c.fillStyle="yellow"
 
-c?.clearRect(0, 0, 800, 800);
 c?.beginPath();
 c?.arc(x, y, radius, starting, ending, isCounterClockwise);
+c.fill()
 c?.stroke();
 
 export function animate() {
   requestAnimationFrame(animate);
+  requestAnimationFrame(drawGame);
+
   createCircle();
+
 
   x += dx
   y += dy
 }
 
-animate();
+animate()
 
 
 
@@ -40,10 +44,71 @@ animate();
 
 
 
+// map
+let tileW = 30, tileH = 30
+let mapH = 19, mapW = 19
+const gameMap = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0,
+  0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
+  0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0,
+  0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+  1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1,
+  0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0,
+  1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, ///middle
+  0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0,
+  1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1,
+  0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+  0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0,
+  0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
+  0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0,
+  0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
+
+
+
+
+
+
+
+  
+
+
+
+]
+
+function drawGame() {
+  if (c === null) {
+    return;
+  }
+
+  for (let y = 0; y < mapH; y++) {
+    for(let x = 0; x < mapW; x++) {
+      switch(gameMap[((y * mapW) + x)]) {
+        case 0:
+          c.fillStyle = "black"
+          break;
+        case 1: 
+          c.fillStyle = "transparent"
+          break;
+      }
+      c.fillRect(x*tileW, y*tileH, tileW, tileH)
+    }
+  }
+}
+
+
+
+
+// pacman
 function createCircle() {
   c?.clearRect(0, 0, window.innerWidth, window.innerHeight);
   c?.beginPath();
+  c.fillStyle = "yellow"
   c?.arc(x, y, radius, starting, ending, isCounterClockwise);
   c?.fill();
   c?.stroke();
