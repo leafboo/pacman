@@ -1,5 +1,3 @@
-import { animate } from "./main.ts"
-
 const canvas = document.querySelector('canvas')!;
 const c = canvas?.getContext('2d');
 
