@@ -55,12 +55,20 @@ function drawMap() {
       switch (gameMap[i * mapW + j]) {
         case 0:
           c.fillStyle = "black";
+          if (isColliding(j * tileW, i * tileH)) {
+            console.log('what the fuck')
+            dx = 0;
+            dy = 0;
+          }
           break;
         case 1:
           c.fillStyle = "transparent";
           break;
       }
       c.fillRect(j * tileW, i * tileH, tileW, tileH);
+
+      
+      
     }
   }
 }
@@ -92,7 +100,12 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-
+function isColliding(wallX: number, wallY: number): boolean {
+  if ( pacmanX + radius + dx >= wallX && pacmanX - radius + dx <= wallX + tileW && pacmanY - radius + dy <= wallY + tileH && pacmanY + radius + dy >= wallY) {
+    return true;
+  }
+  return false
+}
 
 // run the code
 function animate() {
