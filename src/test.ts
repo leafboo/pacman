@@ -6,7 +6,7 @@ canvass.height = window.innerHeight
 
 
 
-let x = 20;
+let x = 400;
 let y = 50;
 let dx = 0;
 let dy = 0;
@@ -23,28 +23,32 @@ context.fillRect(x, y, 20, 20);
 context.fillStyle = 'blue'; // Set fill color to blue
 context.fillRect(50, 50, 20, 20);
 
+// Third square
+context.fillStyle = 'blue'; // Set fill color to blue
+context.fillRect(30, 100, 20, 20);
+
 
 
 // movements
 document.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'ArrowUp':
-      dy = -3; // Move up
+      dy = -5; // Move up
       dx = 0;
       break;
 
     case 'ArrowDown':
-      dy = 3; // Move down
+      dy = 5; // Move down
       dx = 0;
       break;
 
     case 'ArrowLeft':
-      dx = -3; // Move left
+      dx = -5; // Move left
       dy = 0;
       break;
 
     case 'ArrowRight':
-      dx = 3; // Move right
+      dx = 5; // Move right
       dy = 0;
       break;
   }
@@ -60,11 +64,23 @@ function animate() {
 
   // Second square
   context.fillStyle = 'blue'; // Set fill color to blue
-  context.fillRect(200, 50, 20, 20);
+  context.fillRect(900, 50, 20, 20);
 
-  if (x + boxWidth >= 200) {
+  // Third square
+  context.fillStyle = 'blue'; // Set fill color to blue
+  context.fillRect(100, 50, 20, 20);
+
+  const box1Left = 900
+  const box1Right = 920
+  const box2Right = 100
+
+  if (x + boxWidth >= box1Left && x <= box1Left + boxWidth && y + 1 < 50 + boxWidth) {
     dx = 0;
-    x -= 1;
+    x -= 2;
+  }
+  if (x + boxWidth >= box2Right && x <= box2Right + boxWidth && y + 1 < 50 + boxWidth) {
+    dx = 0;
+    x += 2;
   }
   
 
